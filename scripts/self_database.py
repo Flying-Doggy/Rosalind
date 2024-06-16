@@ -43,17 +43,29 @@ amino_mass_table = {"A":71.03711 , 'C':103.00919 , 'D':115.02694 , 'E':129.04259
                   'R':156.10111 , 'S':87.03203 , 'T':101.04768 , 'V':99.06841 , 'W':186.07931 , 'Y':163.06333}
 
 
-def read_fa_file( file_path ):
-    fa_dic = {}
-    with open( file=file_path) as f:
-        datas = f.readlines()
-        for tmp_line in datas:
-            if tmp_line.startswith('>'):
-                tmp_id = tmp_line[1:-1]
-                fa_dic[ tmp_id ] = ''
-            else:
-                fa_dic[ tmp_id ] += tmp_line.strip('\n')
-    
+def read_fa_file( file_path:str , outfmt:str='dict'):
+    if outfmt == 'dict':
+        fa_dic = {}
+        with open( file=file_path) as f:
+            datas = f.readlines()
+            for tmp_line in datas:
+                if tmp_line.startswith('>'):
+                    tmp_id = tmp_line[1:-1]
+                    fa_dic[ tmp_id ] = ''
+                else:
+                    fa_dic[ tmp_id ] += tmp_line.strip('\n')
+    elif outfmt == 'list':
+        fa_dic = []
+        with open( file=file_path) as f:
+            datas = f.readlines()
+            for tmp_line in datas:
+                if tmp_line.startswith('>'):
+                    fa_dic.append('')
+                else:
+                    fa_dic[-1]+= tmp_line.strip('\n')
+    else:
+        print( " outmt should be one of dict of list")
+        return None
     return fa_dic
 
 def DNA_rev_comp( DNA_seq:str ) ->str:
