@@ -74,3 +74,34 @@ def DNA_rev_comp( DNA_seq:str ) ->str:
     for i in DNA_seq[::-1]:
         rc_seq += base_map[i]
     return rc_seq
+
+
+def hamming( seq1:str , seq2:str ):
+    # seq1 and seq2 should be equal length
+    if len(seq1) != len(seq2):
+        print( "%s and %s are not equal length, please check the input sequence"%( seq1 , seq2 ) )
+        return 0
+    else:
+        mis_cnt = sum( [ seq1[i] != seq2[i] for i in range(len(seq1)) ] )
+        return mis_cnt/len(seq1)
+    
+
+def edit_distance(seq1:str , seq2:str ): # Wagner-Fischer algorithm
+    cur = list(range(len(seq1)+1))
+    for j, s in enumerate(seq2):
+        last, cur = cur, [j+1] 
+        for i, t in enumerate(seq1):
+            cur.append(last[i] if s==t else min([last[i+1], last[i], cur[-1]]) + 1)
+    return cur[-1]
+
+def edit_distance_fast( s: str, t: str) -> int:  
+    # use one list to update distance
+    f = list(range(len(t) + 1))
+    for x in s:
+        pre = f[0]
+        f[0] += 1
+        for j, y in enumerate(t):
+            tmp = f[j + 1]
+            f[j + 1] = pre if x == y else min(f[j + 1], f[j], pre) + 1
+            pre = tmp
+    return f[-1]
