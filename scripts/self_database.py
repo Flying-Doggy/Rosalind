@@ -105,3 +105,41 @@ def edit_distance_fast( s: str, t: str) -> int:
             f[j + 1] = pre if x == y else min(f[j + 1], f[j], pre) + 1
             pre = tmp
     return f[-1]
+
+
+
+
+### TRIE
+class trie_tree:
+    def __init__(self , root:str ) -> None:
+        self.root = trie_node( val=root , idx=1 )
+        self.n = 1
+        self.node_dic = { 1:self.root }
+        pass
+
+    def add_string( self, seq:str ) -> None:
+        cur = self.root
+        for i in seq:
+            if cur.next.get(i):
+                cur = cur.next.get(i)
+            else:
+                self.n += 1
+                cur.next[i] = trie_node( val=i , idx=self.n )
+                print( cur.idx,  self.n , i )
+                cur = cur.next[i]
+        pass
+
+class trie_node:
+    def __init__(self , val:str , idx:int ) -> None:
+        self.val = val
+        self.idx = idx
+        self.next = { }
+        pass
+
+    def __repr__(self) -> str:
+        return self.next
+    
+    def __str__(self) -> str:
+        pass
+
+###
