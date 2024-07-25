@@ -1,0 +1,9 @@
+go to the website https://www.ncbi.nlm.nih.gov/genbank/
+
+Search the items like following format:
+
+"Leptomithrax"[Organism] AND ("2009/03/06"[PDAT] : "2011/04/01"[PDAT]) 
+
+
+# take this url as a reference
+https://www.ncbi.nlm.nih.gov/nuccore/?term=%22Leptomithrax%22%5BOrganism%5D+AND+(%222009%2F03%2F06%22%5BPDAT%5D+%3A+%222011%2F04%2F01%22%5BPDAT%5D)
